@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Billing</h2>
+
+<form method="POST" action="{{ url_for('add_bill') }}" class="mb-4">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label>Patient</label>
+            <select name="patient_id" class="form-select" required>
+                {% for patient in patients %}
+                    <option value="{{ patient.id }}">{{ patient.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label>Paid Amount</label>
+            <input type="number" step="0.01" name="paid_amount" class="form-control" required>
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="medicine-container">
+        <div class="row g-2 mb-2 medicine-row">
+            <div class="col-md-6">
+                <select name="medicine_id" class="form-select" required>
+                    {% for med in medicines %}
+                        <option value="{{ med.id }}">{{ med.name }} (₹{{ med.price }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="number" name="quantity" class="form-control" placeholder="Quantity" required>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" onclick="addMedicineRow()" class="btn btn-sm btn-secondary mb-3">Add Another Medicine</button>
+    <button type="submit" class="btn btn-success d-block">Create Bill</button>
+</form>
+
+<h3>All Bills</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Patient</th>
+            <th>Total Amount</th>
+            <th>Paid Amount</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bill in billing %}
+        <tr>
+            <td>{{ bill.id }}</td>
+            <td>{{ bill.patient_name }}</td>
+            <td>₹{{ bill.total_amount }}</td>
+            <td>₹{{ bill.paid_amount }}</td>
+            <td>₹{{ bill.balance }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function addMedicineRow() {
+    const container = document.getElementById("medicine-container");
+    const newRow = document.querySelector(".medicine-row").cloneNode(true);
+    newRow.querySelectorAll('select, input').forEach(element => {
+        if (element.tagName === 'SELECT') element.selectedIndex = 0;
+        else if (element.tagName === 'INPUT') element.value = '';
+    });
+    container.appendChild(newRow);
+}
+</script>
+{% endblock %}

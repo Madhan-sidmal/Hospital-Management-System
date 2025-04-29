@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Patients</h2>
+
+<form method="POST" action="{{ url_for('add_patient') }}" class="row g-3 mb-4">
+    <div class="col-md-4"><input type="text" name="name" class="form-control" placeholder="Name" required></div>
+    <div class="col-md-2"><input type="number" name="age" class="form-control" placeholder="Age" required></div>
+    <div class="col-md-2">
+        <select name="gender" class="form-control" required>
+            <option disabled selected>Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+    </div>
+    <div class="col-md-2"><input type="text" name="contact" class="form-control" placeholder="Contact" required></div>
+    <div class="col-md-2"><input type="text" name="address" class="form-control" placeholder="Address" required></div>
+    <div class="col-12"><button class="btn btn-success">Add Patient</button></div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Contact</th><th>Address</th></tr></thead>
+    <tbody>
+        {% for patient in patients %}
+            <tr>
+                <td>{{ patient.id }}</td>
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.age }}</td>
+                <td>{{ patient.gender }}</td>
+                <td>{{ patient.contact }}</td>
+                <td>{{ patient.address }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

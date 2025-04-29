@@ -1,0 +1,33 @@
+body {
+    background-color: #f4f7fc;
+}
+
+.navbar {
+    margin-bottom: 30px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.table th {
+    background-color: #f1f1f1;
+}
+
+.table td, .table th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btn {
+    margin: 5px;
+}
+
+.alert {
+    margin-top: 20px;
+}
